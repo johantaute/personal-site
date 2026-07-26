@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Johan Taute — Cybersecurity Consultant &amp; Cellular Security Research</title>
+<meta name="description" content="Johan Taute — Cybersecurity Consultant specializing in penetration testing, wireless security, and cellular network research.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0d13;
+    --bg-2: #0d1119;
+    --glass: rgba(255,255,255,0.045);
+    --glass-border: rgba(255,255,255,0.09);
+    --cyan: #4ce0d2;
+    --violet: #9d7bff;
+    --text: #e8ecf1;
+    --muted: #8b93a7;
+    --muted-2: #5c6478;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: radial-gradient(ellipse 1200px 800px at 20% -10%, #131a2a 0%, var(--bg) 55%),
+                radial-gradient(ellipse 900px 700px at 100% 10%, #17131f 0%, transparent 60%),
+                var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  a{ color: inherit; text-decoration:none; }
+
+  .eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width: 24px; height: 1px;
+    background: var(--cyan);
+    display:inline-block;
+  }
+
+  h1, h2, h3{
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  .wrap{
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* NAV */
+  nav{
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(14px);
+    background: rgba(10,13,19,0.6);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height: 68px;
+  }
+  .brand{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:600;
+    font-size:0.95rem;
+    color: var(--text);
+  }
+  .brand span{ color: var(--cyan); }
+  .navlinks{ display:flex; gap:28px; }
+  .navlinks a{
+    font-size:0.85rem; color: var(--muted); font-weight:500;
+    transition: color .2s ease;
+  }
+  .navlinks a:hover{ color: var(--cyan); }
+  .navlinks a:focus-visible, a:focus-visible{
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+  @media (max-width: 720px){ .navlinks{ display:none; } }
+
+  /* HERO */
+  .hero{
+    position: relative;
+    padding: 108px 0 90px;
+    overflow: hidden;
+  }
+  #waveform{
+    position:absolute;
+    inset: -20% -5% auto -5%;
+    height: 480px;
+    width: 110%;
+    pointer-events:none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .hero-inner{ position:relative; z-index:2; }
+
+  .hero .eyebrow{ margin-bottom: 22px; }
+
+  .hero h1{
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.04;
+    margin-bottom: 22px;
+  }
+  .hero h1 .grad{
+    background: linear-gradient(100deg, var(--cyan), var(--violet) 70%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero-quote{
+    font-family: 'Space Grotesk', sans-serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2.6vw, 1.55rem);
+    line-height: 1.4;
+    max-width: 620px;
+    margin-bottom: 28px;
+  }
+  .hero-quote .grad{
+    background: linear-gradient(100deg, var(--cyan), var(--violet) 70%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero-quote-attr{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    font-style: normal;
+    font-size: 0.78rem;
+    color: var(--muted-2);
+    margin-top: 10px;
+    letter-spacing: 0.02em;
+  }
+  .hero p.lead{
+    max-width: 560px;
+    color: var(--muted);
+    font-size: 1.08rem;
+    margin-bottom: 36px;
+  }
+  .hero-meta{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted-2);
+    margin-bottom: 40px;
+    display:flex; gap:8px; align-items:center;
+  }
+  .pulse-dot{
+    width:7px; height:7px; border-radius:50%;
+    background: var(--cyan);
+    box-shadow: 0 0 8px 1px var(--cyan);
+    animation: pulse 2s ease-in-out infinite;
+    flex-shrink:0;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:0.4; transform:scale(0.8); }
+  }
+
+  .cta-row{ display:flex; flex-wrap:wrap; gap:14px; }
+  .btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.82rem;
+    padding: 13px 22px;
+    border-radius: 10px;
+    display:inline-flex; align-items:center; gap:9px;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .btn-primary{
+    background: linear-gradient(100deg, var(--cyan), var(--violet));
+    color: #0a0d13;
+    font-weight:600;
+  }
+  .btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 10px 30px -8px rgba(76,224,210,0.45); }
+  .btn-glass{
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    backdrop-filter: blur(10px);
+  }
+  .btn-glass:hover{ transform: translateY(-2px); border-color: rgba(157,123,255,0.5); }
+
+  /* SECTION SHELL */
+  section{ padding: 78px 0; position:relative; }
+  .section-head{ margin-bottom: 46px; }
+  .section-head h2{
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-weight:600;
+    margin-top: 10px;
+  }
+
+  /* GLASS CARD */
+  .card{
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+    padding: 26px 28px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{ border-color: rgba(76,224,210,0.3); }
+
+  /* EXPERIENCE TIMELINE */
+  .timeline{ position:relative; padding-left: 28px; }
+  .timeline::before{
+    content:'';
+    position:absolute; left: 5px; top: 6px; bottom: 6px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--cyan), rgba(157,123,255,0.15));
+  }
+  .tl-item{ position:relative; margin-bottom: 34px; }
+  .tl-item:last-child{ margin-bottom:0; }
+  .tl-item::before{
+    content:'';
+    position:absolute; left: -28px; top: 6px;
+    width: 10px; height:10px; border-radius:50%;
+    background: var(--bg);
+    border: 2px solid var(--cyan);
+  }
+  .tl-role{ font-weight:600; font-size:1.02rem; }
+  .tl-org{ color: var(--violet); font-size:0.92rem; font-weight:500; margin-top:2px; }
+  .tl-date{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.75rem;
+    color: var(--muted-2);
+    margin: 6px 0 10px;
+  }
+  .tl-desc{ color: var(--muted); font-size:0.92rem; max-width: 640px; }
+
+  /* CERTS GRID */
+  .cert-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .cert{ padding: 20px 22px; }
+  .cert-name{ font-weight:600; font-size:0.95rem; margin-bottom:4px; }
+  .cert-issuer{ color: var(--cyan); font-size:0.8rem; font-weight:500; }
+  .cert-date{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem; color: var(--muted-2); margin-top:8px;
+  }
+  .cert-id{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem; color: var(--muted-2); margin-top:2px;
+    word-break: break-all;
+  }
+
+  /* INVOLVEMENT / TALKS */
+  .involve-grid{
+    display:grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 18px;
+  }
+  @media (max-width: 800px){ .involve-grid{ grid-template-columns: 1fr; } }
+
+  .talk-card{
+    background: linear-gradient(135deg, rgba(76,224,210,0.07), rgba(157,123,255,0.06));
+    border: 1px solid rgba(76,224,210,0.22);
+  }
+  .talk-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.7rem; color: var(--cyan);
+    text-transform:uppercase; letter-spacing:0.1em;
+    margin-bottom: 10px; display:block;
+  }
+  .talk-card h3{ font-size:1.3rem; margin-bottom: 10px; }
+  .talk-card p{ color: var(--muted); font-size:0.92rem; }
+  .talk-meta{ margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:0.75rem; color: var(--muted-2); }
+
+  .mini-list{ display:flex; flex-direction:column; gap:14px; }
+  .mini-item{ padding: 18px 20px; }
+  .mini-role{ font-weight:600; font-size:0.92rem; }
+  .mini-org{ color: var(--violet); font-size:0.82rem; margin-top:2px; }
+  .mini-date{
+    font-family:'JetBrains Mono', monospace; font-size:0.7rem;
+    color: var(--muted-2); margin: 6px 0 8px;
+  }
+  .mini-desc{ color: var(--muted); font-size:0.84rem; }
+
+  /* GITBOOK CALLOUT */
+  .gitbook{
+    display:flex; align-items:center; justify-content:space-between;
+    gap: 24px;
+    padding: 34px 38px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    flex-wrap: wrap;
+  }
+  .gitbook h3{ font-size:1.25rem; margin-bottom:6px; }
+  .gitbook p{ color: var(--muted); font-size:0.9rem; max-width:420px; }
+
+  /* SIGNAL METER — random cool element */
+  .signal-meter{
+    display:flex; align-items:flex-end; gap:3px; height:20px;
+  }
+  .signal-meter span{
+    width:4px; background: var(--cyan); border-radius:1px;
+    animation: bounce 1.4s ease-in-out infinite;
+    opacity:0.85;
+  }
+  .signal-meter span:nth-child(1){ height:30%; animation-delay: 0s; }
+  .signal-meter span:nth-child(2){ height:60%; animation-delay: 0.15s; }
+  .signal-meter span:nth-child(3){ height:100%; animation-delay: 0.3s; }
+  .signal-meter span:nth-child(4){ height:45%; animation-delay: 0.45s; }
+  .signal-meter span:nth-child(5){ height:75%; animation-delay: 0.6s; }
+  @keyframes bounce{
+    0%,100%{ transform: scaleY(0.4); }
+    50%{ transform: scaleY(1); }
+  }
+
+  /* EDUCATION */
+  .edu-row{ display:flex; flex-direction:column; gap:14px; }
+
+  /* FOOTER */
+  footer{
+    padding: 60px 0 50px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px;
+  }
+  .footer-links{ display:flex; gap: 22px; flex-wrap:wrap; }
+  .footer-links a{ font-size:0.85rem; color: var(--muted); }
+  .footer-links a:hover{ color: var(--cyan); }
+  .footer-note{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem; color: var(--muted-2);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">JOHAN<span>_</span>TAUTE</div>
+    <div class="navlinks">
+      <a href="#experience">Experience</a>
+      <a href="#certs">Certifications</a>
+      <a href="#involvement">Talks &amp; Involvement</a>
+      <a href="#education">Education</a>
+      <a href="https://docs.tautegroup.co.za">GitBook</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <svg id="waveform" viewBox="0 0 1200 480" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#4ce0d2" stop-opacity="0"/>
+        <stop offset="45%" stop-color="#4ce0d2" stop-opacity="0.9"/>
+        <stop offset="70%" stop-color="#9d7bff" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#9d7bff" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <path id="wavePath" fill="none" stroke="url(#waveGrad)" stroke-width="1.6"/>
+    <path id="wavePath2" fill="none" stroke="url(#waveGrad)" stroke-width="1" opacity="0.35"/>
+  </svg>
+
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Pretoria, Gauteng, South Africa</div>
+    <h1>Johan Taute</h1>
+    <p class="hero-quote">&ldquo;<span class="grad">If you know the enemy and know yourself, you need not fear the result of a hundred battles.</span>&rdquo;<span class="hero-quote-attr">— Sun Tzu, The Art of War</span></p>
+    <p class="lead">Cybersecurity consultant working across offensive security, wireless, and mobile app testing — currently digging deeper into cellular network security and RF attack surfaces.</p>
+    <div class="hero-meta"><span class="pulse-dot"></span> ACTIVELY CONSULTING · REDSHIFT CYBER SECURITY</div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://docs.tautegroup.co.za" target="_blank" rel="noopener">Read my GitBook →</a>
+      <a class="btn btn-glass" href="https://www.linkedin.com/in/johan-taute-b66a3b182" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-glass" href="mailto:johan.taute@hotmail.co.za">Email me</a>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Career</div>
+      <h2>Experience</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-role">Cyber Security Consultant</div>
+        <div class="tl-org">Redshift Cyber Security (Pty) Ltd</div>
+        <div class="tl-date">APR 2025 — PRESENT</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Junior Cyber Security Consultant</div>
+        <div class="tl-org">Redshift Cyber Security (Pty) Ltd</div>
+        <div class="tl-date">SEP 2023 — APR 2025</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Cybersecurity Architect</div>
+        <div class="tl-org">NEWORDER</div>
+        <div class="tl-date">JUN 2023 — AUG 2023</div>
+        <div class="tl-desc">Full-scope penetration testing: scanning, manual testing, validation, and vulnerability management using Tenable Nessus, Burp Suite, Kali Linux, Invicti Netsparker, OWASP ZAP, NMAP, Metasploit and SQLmap. Applied OSWP wireless security expertise and completed attack-surface management training on ZeroFox, Rapid7 and Alert Logic.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Junior Security Architect</div>
+        <div class="tl-org">NEWORDER</div>
+        <div class="tl-date">JUL 2022 — JUN 2023</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Associate Cyber Security Consultant</div>
+        <div class="tl-org">MWR CyberSec</div>
+        <div class="tl-date">FEB 2022 — JUN 2022</div>
+        <div class="tl-desc">Trained in vulnerability assessment methodology, report writing, and gaining technical depth across web applications, network protocols, and operating systems.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">IT Support Technician</div>
+        <div class="tl-org">CureMED Health &amp; Wealth Consultants</div>
+        <div class="tl-date">SEP 2020 — MAR 2021</div>
+        <div class="tl-desc">Sole owner of IT infrastructure including Active Directory, hardware, and support services.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Credentials</div>
+      <h2>Certifications</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="card cert">
+        <div class="cert-name">Mobile Application Penetration Tester</div>
+        <div class="cert-issuer">INE</div>
+        <div class="cert-date">ISSUED JUL 2026 · EXPIRES JUL 2029</div>
+        <div class="cert-id">ID 189647332</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">Certified Professional Penetration Tester</div>
+        <div class="cert-issuer">INE</div>
+        <div class="cert-date">ISSUED JAN 2025</div>
+        <div class="cert-id">ID 129137184</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">Web Application Penetration Tester</div>
+        <div class="cert-issuer">INE</div>
+        <div class="cert-date">ISSUED JAN 2024</div>
+        <div class="cert-id">ID 91641029</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">Junior Penetration Tester</div>
+        <div class="cert-issuer">INE</div>
+        <div class="cert-date">ISSUED SEP 2023</div>
+        <div class="cert-id">ID 83105061</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">OffSec Wireless Professional (OSWP)</div>
+        <div class="cert-issuer">OffSec</div>
+        <div class="cert-date">ISSUED MAY 2023</div>
+        <div class="cert-id">ID OS-BWA-35919</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">UDRP Fundamentals</div>
+        <div class="cert-issuer">ZeroFox</div>
+        <div class="cert-date">ISSUED FEB 2023</div>
+        <div class="cert-id">ID E-71KLD0</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">Social Media Security Awareness</div>
+        <div class="cert-issuer">ZeroFox</div>
+        <div class="cert-date">ISSUED FEB 2023</div>
+        <div class="cert-id">ID E-GVZ808</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">ZeroFox Platform Fundamentals</div>
+        <div class="cert-issuer">ZeroFox</div>
+        <div class="cert-date">ISSUED FEB 2023</div>
+        <div class="cert-id">ID E-5VNQVM</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">Introduction to OnWatch &amp; Platform Alerts</div>
+        <div class="cert-issuer">ZeroFox</div>
+        <div class="cert-date">ISSUED FEB 2023</div>
+        <div class="cert-id">ID E-J0E815</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">Introduction to Adversary Disruption</div>
+        <div class="cert-issuer">ZeroFox</div>
+        <div class="cert-date">ISSUED FEB 2023</div>
+        <div class="cert-id">ID E-D19PVG</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">Introduction to Platform Intelligence &amp; Requests</div>
+        <div class="cert-issuer">ZeroFox</div>
+        <div class="cert-date">ISSUED FEB 2023</div>
+        <div class="cert-id">ID E-E0JM0Z</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">Introduction to IT &amp; Cybersecurity</div>
+        <div class="cert-issuer">Cybrary</div>
+        <div class="cert-date">ISSUED AUG 2021</div>
+        <div class="cert-id">ID CC-bfa151a8</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">MITRE ATT&amp;CK Defender™ — SOC Assessments</div>
+        <div class="cert-issuer">Cybrary</div>
+        <div class="cert-date">ISSUED AUG 2021</div>
+        <div class="cert-id">ID CC-78f8bd6f</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">Privileged Access Management</div>
+        <div class="cert-issuer">Cybrary</div>
+        <div class="cert-date">ISSUED AUG 2021</div>
+        <div class="cert-id">ID CC-22dfa53b</div>
+      </div>
+      <div class="card cert">
+        <div class="cert-name">MITRE ATT&amp;CK Defender™ — Cyber Threat Intelligence</div>
+        <div class="cert-issuer">Cybrary</div>
+        <div class="cert-date">ISSUED AUG 2021</div>
+        <div class="cert-id">ID CC-a4ab4c5a</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="involvement">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Beyond the desk</div>
+      <h2>Talks &amp; Involvement</h2>
+    </div>
+    <div class="involve-grid">
+      <div class="card talk-card">
+        <span class="talk-tag">Speaker · 0xCon 2025</span>
+        <h3>Signals Under Siege</h3>
+        <p>A talk tracing radio's evolution and how legacy concepts still shape today's attack surface — covering mobile network security, counter-espionage principles, and a practical methodology, with tools and attack patterns for RF and cellular environments.</p>
+        <div class="talk-meta">0xCOFFEE · NOV 2025</div>
+      </div>
+      <div class="mini-list">
+        <div class="card mini-item">
+          <div class="mini-role">Founder &amp; Manager, Cybersecurity Club</div>
+          <div class="mini-org">Belgium Campus</div>
+          <div class="mini-date">AUG 2021 — FEB 2023</div>
+          <div class="mini-desc">Founded and ran the campus cybersecurity club, mentoring students in offensive and defensive skills.</div>
+        </div>
+        <div class="card mini-item">
+          <div class="mini-role">Moderator</div>
+          <div class="mini-org">Taccor Gaming</div>
+          <div class="mini-date">APR 2020 — PRESENT</div>
+        </div>
+        <div class="card mini-item">
+          <div class="mini-role">Build Team — LuminEssence</div>
+          <div class="mini-org">AfrikaBurn</div>
+          <div class="mini-date">DEC 2023 — APR 2024</div>
+        </div>
+        <div class="card mini-item">
+          <div class="mini-role">Build Team — Gia's Song</div>
+          <div class="mini-org">AfrikaBurn</div>
+          <div class="mini-date">FEB 2022 — APR 2022</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Foundation</div>
+      <h2>Education</h2>
+    </div>
+    <div class="edu-row">
+      <div class="card">
+        <div class="tl-role">Bachelor's Degree of Computing, Computer Software Engineering</div>
+        <div class="tl-org">Belgium Campus</div>
+        <div class="tl-date">2019 — 2026</div>
+      </div>
+      <div class="card">
+        <div class="tl-role">Matric</div>
+        <div class="tl-org">Hoërskool Eldoraigne</div>
+        <div class="tl-date">JAN 2014 — DEC 2018</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gitbook-section">
+  <div class="wrap">
+    <div class="gitbook">
+      <div>
+        <div class="eyebrow" style="margin-bottom:12px;">Research &amp; write-ups</div>
+        <h3>Notes from the field, on GitBook</h3>
+        <p>Deeper technical breakdowns, methodology, and research on cellular security, RF, and offensive testing.</p>
+      </div>
+      <div style="display:flex; align-items:center; gap:18px;">
+        <div class="signal-meter" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+        <a class="btn btn-primary" href="https://docs.tautegroup.co.za" target="_blank" rel="noopener">docs.tautegroup.co.za →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div>
+      <div class="brand">JOHAN<span>_</span>TAUTE</div>
+      <div class="footer-note" style="margin-top:8px;">Pretoria, Gauteng, South Africa</div>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:johan.taute@hotmail.co.za">johan.taute@hotmail.co.za</a>
+      <a href="https://www.linkedin.com/in/johan-taute-b66a3b182" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://docs.tautegroup.co.za" target="_blank" rel="noopener">GitBook</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Animated RF waveform signature element
+  (function(){
+    const path1 = document.getElementById('wavePath');
+    const path2 = document.getElementById('wavePath2');
+    const W = 1200, H = 480, MID = 220;
+    let t = 0;
+
+    function buildPath(offset, amp1, amp2, freq1, freq2){
+      let d = `M -20 ${MID}`;
+      const step = 8;
+      for(let x = 0; x <= W + 20; x += step){
+        const y = MID
+          + Math.sin((x * freq1) + t + offset) * amp1
+          + Math.sin((x * freq2) + t * 1.6 + offset) * amp2;
+        d += ` L ${x} ${y.toFixed(2)}`;
+      }
+      return d;
+    }
+
+    function tick(){
+      path1.setAttribute('d', buildPath(0, 46, 18, 0.012, 0.03));
+      path2.setAttribute('d', buildPath(1.4, 30, 26, 0.009, 0.021));
+      t += 0.02;
+      requestAnimationFrame(tick);
+    }
+
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      requestAnimationFrame(tick);
+    } else {
+      path1.setAttribute('d', buildPath(0, 46, 18, 0.012, 0.03));
+      path2.setAttribute('d', buildPath(1.4, 30, 26, 0.009, 0.021));
+    }
+  })();
+</script>
+
+</body>
+</html>
