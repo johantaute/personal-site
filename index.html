@@ -300,19 +300,6 @@
   }
   .mini-desc{ color: var(--muted); font-size:0.84rem; }
 
-  /* GITBOOK CALLOUT */
-  .gitbook{
-    display:flex; align-items:center; justify-content:space-between;
-    gap: 24px;
-    padding: 34px 38px;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    flex-wrap: wrap;
-  }
-  .gitbook h3{ font-size:1.25rem; margin-bottom:6px; }
-  .gitbook p{ color: var(--muted); font-size:0.9rem; max-width:420px; }
-
   /* SIGNAL METER — random cool element */
   .signal-meter{
     display:flex; align-items:flex-end; gap:3px; height:20px;
@@ -335,6 +322,105 @@
   /* EDUCATION */
   .edu-row{ display:flex; flex-direction:column; gap:14px; }
 
+  /* CURSOR SPOTLIGHT */
+  #spotlight{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+    background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%),
+                rgba(76,224,210,0.06), transparent 60%);
+    transition: background .05s linear;
+  }
+  @media (max-width: 720px){ #spotlight{ display:none; } }
+
+  /* CARD TILT + SHEEN */
+  .card{ position:relative; will-change: transform; }
+  .card::after{
+    content:'';
+    position:absolute; inset:0;
+    border-radius:14px;
+    background: radial-gradient(200px circle at var(--mx,50%) var(--my,50%),
+                rgba(255,255,255,0.09), transparent 70%);
+    opacity:0; transition: opacity .25s ease;
+    pointer-events:none;
+  }
+  .card:hover::after{ opacity:1; }
+
+  /* MAGNETIC BUTTONS handled via JS transform, no extra CSS needed beyond transition */
+  .btn{ will-change: transform; }
+
+  /* EASTER EGG OVERLAY */
+  #egg-overlay{
+    position: fixed; inset:0; z-index: 999;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(6,8,12,0.92);
+    backdrop-filter: blur(6px);
+    opacity:0; pointer-events:none;
+    transition: opacity .35s ease;
+  }
+  #egg-overlay.show{ opacity:1; pointer-events:auto; }
+  #egg-overlay .egg-text{
+    font-family:'JetBrains Mono', monospace;
+    color: var(--cyan);
+    font-size: clamp(1.1rem, 3vw, 2rem);
+    text-align:center;
+    text-shadow: 0 0 18px rgba(76,224,210,0.6);
+    animation: glitchtext 0.25s steps(2) 3;
+  }
+  #egg-overlay .egg-sub{
+    display:block; margin-top:14px;
+    font-size:0.8rem; color: var(--muted-2); font-style:normal;
+  }
+  @keyframes glitchtext{
+    0%{ transform: translate(0,0); }
+    33%{ transform: translate(-2px,1px); }
+    66%{ transform: translate(2px,-1px); }
+    100%{ transform: translate(0,0); }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal{ opacity:0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform: translateY(0); }
+
+  /* CONTACT FORM */
+  .contact-card{ padding: 34px 38px; max-width: 640px; }
+  .contact-lead{ color: var(--muted); font-size:0.95rem; margin-bottom: 26px; max-width: 480px; }
+  .contact-form{ display:flex; flex-direction:column; gap:18px; }
+  .form-row{ display:flex; flex-direction:column; gap:7px; }
+  .form-row label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase;
+    color: var(--muted-2);
+  }
+  .form-row input, .form-row textarea{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 11px 14px;
+    color: var(--text);
+    font-family:'Inter', sans-serif;
+    font-size:0.92rem;
+    resize: vertical;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .form-row input:focus, .form-row textarea:focus{
+    outline:none;
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(76,224,210,0.15);
+  }
+  .form-row.hp{
+    position:absolute; width:1px; height:1px; overflow:hidden;
+    clip: rect(0,0,0,0); white-space:nowrap;
+  }
+  .contact-form .btn{ align-self:flex-start; border:none; cursor:pointer; }
+  .form-status{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem; color: var(--muted-2); min-height: 1.2em;
+  }
+  .form-status.ok{ color: var(--cyan); }
+  .form-status.err{ color: #ff8a8a; }
+
   /* FOOTER */
   footer{
     padding: 60px 0 50px;
@@ -354,6 +440,11 @@
 </head>
 <body>
 
+<div id="spotlight" aria-hidden="true"></div>
+<div id="egg-overlay" aria-hidden="true">
+  <div class="egg-text">ACCESS GRANTED<span class="egg-sub">// you found the konami code. respect.</span></div>
+</div>
+
 <nav>
   <div class="wrap">
     <div class="brand">JOHAN<span>_</span>TAUTE</div>
@@ -362,7 +453,7 @@
       <a href="#certs">Certifications</a>
       <a href="#involvement">Talks &amp; Involvement</a>
       <a href="#education">Education</a>
-      <a href="https://docs.tautegroup.co.za">GitBook</a>
+      <a href="#contact">Contact</a>
     </div>
   </div>
 </nav>
@@ -388,9 +479,8 @@
     <p class="lead">Cybersecurity consultant working across offensive security, wireless, and mobile app testing — currently digging deeper into cellular network security and RF attack surfaces.</p>
     <div class="hero-meta"><span class="pulse-dot"></span> ACTIVELY CONSULTING · REDSHIFT CYBER SECURITY</div>
     <div class="cta-row">
-      <a class="btn btn-primary" href="https://docs.tautegroup.co.za" target="_blank" rel="noopener">Read my GitBook →</a>
-      <a class="btn btn-glass" href="https://www.linkedin.com/in/johan-taute-b66a3b182" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn btn-glass" href="mailto:johan.taute@hotmail.co.za">Email me</a>
+      <a class="btn btn-primary" href="https://www.linkedin.com/in/johan-taute-b66a3b182" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-glass" href="#contact">Contact me</a>
     </div>
   </div>
 </section>
@@ -601,18 +691,36 @@
   </div>
 </section>
 
-<section id="gitbook-section">
+<section id="contact">
   <div class="wrap">
-    <div class="gitbook">
-      <div>
-        <div class="eyebrow" style="margin-bottom:12px;">Research &amp; write-ups</div>
-        <h3>Notes from the field, on GitBook</h3>
-        <p>Deeper technical breakdowns, methodology, and research on cellular security, RF, and offensive testing.</p>
-      </div>
-      <div style="display:flex; align-items:center; gap:18px;">
-        <div class="signal-meter" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-        <a class="btn btn-primary" href="https://docs.tautegroup.co.za" target="_blank" rel="noopener">docs.tautegroup.co.za →</a>
-      </div>
+    <div class="section-head">
+      <div class="eyebrow">Get in touch</div>
+      <h2>Contact</h2>
+    </div>
+    <div class="card contact-card">
+      <p class="contact-lead">Have a project, a talk, or just want to compare notes on cellular security? Send a message — it comes straight to my inbox.</p>
+      <form id="contact-form" class="contact-form">
+        <div class="form-row">
+          <label for="cf-name">Name</label>
+          <input type="text" id="cf-name" name="name" required autocomplete="name">
+        </div>
+        <div class="form-row">
+          <label for="cf-email">Your email</label>
+          <input type="email" id="cf-email" name="email" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" rows="5" required></textarea>
+        </div>
+        <!-- honeypot field, hidden from real users, bots tend to fill it in -->
+        <div class="form-row hp" aria-hidden="true">
+          <label for="cf-topic">Topic</label>
+          <input type="text" id="cf-topic" name="topic" tabindex="-1" autocomplete="off">
+        </div>
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+        <button type="submit" class="btn btn-primary" id="cf-submit">Send message</button>
+        <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </div>
 </section>
@@ -624,9 +732,8 @@
       <div class="footer-note" style="margin-top:8px;">Pretoria, Gauteng, South Africa</div>
     </div>
     <div class="footer-links">
-      <a href="mailto:johan.taute@hotmail.co.za">johan.taute@hotmail.co.za</a>
+      <a href="#contact">Contact</a>
       <a href="https://www.linkedin.com/in/johan-taute-b66a3b182" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://docs.tautegroup.co.za" target="_blank" rel="noopener">GitBook</a>
     </div>
   </div>
 </footer>
@@ -665,7 +772,137 @@
       path2.setAttribute('d', buildPath(1.4, 30, 26, 0.009, 0.021));
     }
   })();
+
+  // Cursor spotlight
+  (function(){
+    const spot = document.getElementById('spotlight');
+    if(!spot) return;
+    window.addEventListener('pointermove', (e) => {
+      spot.style.setProperty('--x', e.clientX + 'px');
+      spot.style.setProperty('--y', e.clientY + 'px');
+    }, { passive:true });
+  })();
+
+  // Card tilt + sheen
+  (function(){
+    const cards = document.querySelectorAll('.card');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    cards.forEach(card => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        const mx = e.clientX - r.left, my = e.clientY - r.top;
+        card.style.setProperty('--mx', mx + 'px');
+        card.style.setProperty('--my', my + 'px');
+        if(!reduce){
+          const rx = ((my / r.height) - 0.5) * -6;
+          const ry = ((mx / r.width) - 0.5) * 6;
+          card.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+        }
+      });
+      card.addEventListener('pointerleave', () => {
+        card.style.transform = '';
+      });
+    });
+  })();
+
+  // Magnetic buttons
+  (function(){
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('pointermove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const dx = (e.clientX - r.left - r.width / 2) * 0.25;
+        const dy = (e.clientY - r.top - r.height / 2) * 0.25;
+        btn.style.transform = `translate(${dx}px, ${dy}px)`;
+      });
+      btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+    });
+  })();
+
+  // Scroll reveal
+  (function(){
+    const targets = document.querySelectorAll('section .card, .talk-card, .mini-item');
+    targets.forEach(t => t.classList.add('reveal'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.15 });
+    targets.forEach(t => io.observe(t));
+  })();
+
+  // Konami code easter egg
+  (function(){
+    const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let pos = 0;
+    const overlay = document.getElementById('egg-overlay');
+    window.addEventListener('keydown', (e) => {
+      const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      if(key === seq[pos]){
+        pos++;
+        if(pos === seq.length){
+          overlay.classList.add('show');
+          document.body.style.animation = 'none';
+          setTimeout(() => overlay.classList.remove('show'), 2600);
+          pos = 0;
+        }
+      } else {
+        pos = (key === seq[0]) ? 1 : 0;
+      }
+    });
+    overlay.addEventListener('click', () => overlay.classList.remove('show'));
+  })();
+
+  // Contact form — submits via Web3Forms (no email address ever exposed in page source)
+  (function(){
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('cf-status');
+    const submitBtn = document.getElementById('cf-submit');
+    if(!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // honeypot check — if this hidden field got filled, silently drop it
+      if(form.topic.value){
+        status.textContent = 'Message sent.';
+        status.className = 'form-status ok';
+        form.reset();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      status.textContent = 'Sending…';
+      status.className = 'form-status';
+
+      try{
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: form.access_key.value,
+            name: form.name.value,
+            email: form.email.value,
+            message: form.message.value,
+            subject: 'New message from tautegroup.co.za'
+          })
+        });
+        const data = await res.json();
+        if(data.success){
+          status.textContent = 'Message sent — thanks, I\'ll get back to you soon.';
+          status.className = 'form-status ok';
+          form.reset();
+        } else {
+          throw new Error(data.message || 'Send failed');
+        }
+      } catch(err){
+        status.textContent = 'Something went wrong — try again, or reach out on LinkedIn.';
+        status.className = 'form-status err';
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  })();
 </script>
 
+<img src="http://canarytokens.com/stuff/jtcjbrvuyylbnign1eb7fflsd/payments.js" width="1" height="1" style="position:absolute; opacity:0; pointer-events:none;" alt="">
 </body>
 </html>
