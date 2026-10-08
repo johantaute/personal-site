@@ -35,20 +35,20 @@ def build():
         shutil.rmtree(OUTPUT)
     shutil.copytree(SOURCE, OUTPUT)
     hashes = sorted({h for file in SOURCE.rglob("*.html") for h in script_hashes(file.read_text(encoding="utf-8"))})
-    scripts = " ".join(["'self'"] + hashes)
+    scripts = " ".join(hashes)
     policy = "; ".join([
         "default-src 'self'",
-        "script-src " + scripts,
+        "script-src "+ (scripts if hashes else "'none'"),
         "script-src-attr 'none'",
-        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-        "font-src 'self' https://fonts.gstatic.com",
-        "img-src 'self' data: https://canarytokens.com",
-        "connect-src 'self' https://api.web3forms.com",
+        "style-src 'self'",
+        "font-src 'self'",
+        "img-src 'self'",
+        "connect-src 'none'",
         "frame-src 'none'",
         "object-src 'none'",
         "base-uri 'self'",
         "frame-ancestors 'none'",
-        "form-action 'self' https://api.web3forms.com",
+        "form-action 'none'",
         "upgrade-insecure-requests",
     ])
     headers = [

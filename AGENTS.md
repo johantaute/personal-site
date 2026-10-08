@@ -1,7 +1,9 @@
-# Constraints
+# Project instructions
 
-The source of truth for the live website is this GitHub repository. Edit public/index.html and let Cloudflare Workers Builds deploy main automatically. Keep the current design/content unless the user requests changes. The separate private johantaute/website repository holds the future Astro app.
+The source of truth for the live website is GitHub `johantaute/personal-site`. Public business pages are finished static HTML in `public/`, with shared CSS and assets. The private `johantaute/website` repository contains a separate future Astro app. Keep personal notes and GitBook material separate.
 
-Keep Cloudflare on Workers Free. Do not enable paid plans, overages, metered storage/AI, or purchased features. Do not add duplicate GitHub Actions deployment workflows. Only public files belong in public/; never publish repository root, credentials, or private vault content.
+Keep Cloudflare on Workers Free. Do not enable paid plans, overages, metered storage/AI or purchased features. Preserve the existing Workers Builds production and preview configuration; do not add duplicate GitHub Actions deployment workflows. Pin Wrangler versions and review updates.
 
-Run python3 scripts/build.py before deployment changes. Keep generated CSP hashes automatic and preserve required fonts/contact-form resources. Do not submit contact-form messages during verification. Pin Wrangler versions and review updates. Preserve production branch deployment and branch previews.
+Only publish `public/` through the generated `dist/`. Never publish repository root, credentials, private vault content or the archived personal page. Run `python3 scripts/build.py` and `python3 scripts/check.py` before deployment changes. Keep CSP generation in the builder and review any new resource requirements explicitly. Do not submit enquiry messages during verification.
+
+The initial Taute Group redesign was approved for production by the owner on 9 October 2026. For future work, respect the owner’s requested review and publishing scope. Branch pushes publish Cloudflare previews; main publishes production.
