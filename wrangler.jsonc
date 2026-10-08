@@ -1,14 +1,12 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "personal-site",
-  "compatibility_date": "2026-07-26",
-  "observability": {
-    "enabled": true
-  },
+  "compatibility_date": "2026-10-09",
+  "workers_dev": true,
+  "preview_urls": true,
   "assets": {
-    "directory": "."
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+    "directory": "./dist",
+    "not_found_handling": "none",
+    "run_worker_first": false
+  }
 }

@@ -1,0 +1,7 @@
+Contact: https://www.linkedin.com/in/johan-taute-b66a3b182
+Preferred-Languages: en
+Canonical: https://tautegroup.co.za/.well-known/security.txt
+Expires: 2027-07-26T00:00:00.000Z
+
+# Hi. If you're reading this file, you already know what to do.
+# Please report vulnerabilities responsibly — I'll get back to you.
