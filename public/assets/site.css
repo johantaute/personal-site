@@ -374,8 +374,11 @@ body{
 .mobile-nav a:hover{background:var(--cream)}
 .mobile-nav a[aria-current="page"]{color:var(--rust);background:var(--cream)}
 @media(max-width:800px){
-  .mobile-menu{display:block;position:relative}
+  .mobile-menu{display:block;position:static}
   .site-header{position:relative}
+  .site-header .header-cta{display:none}
+  .button{max-width:100%;white-space:normal}
+  .relationship-invite{min-width:0;padding:24px}
 }
 
 .subnav{margin-inline:0}
