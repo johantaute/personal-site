@@ -49,7 +49,7 @@
 </div>
 </header>
 <main id="main">
-<section class="hero container"><div class="hero-grid"><div><p class="eyebrow">Cybersecurity advisory for South African businesses</p><h1>Clear priorities.<br><span class="serif">Confident decisions.</span></h1><p class="lede">Understand your cyber risk. Focus your resources. Build a cybersecurity programme that supports your business.</p><div class="actions"><a class="button" href="/contact/">Discuss Your Cybersecurity Priorities <span aria-hidden="true">↗</span></a><a class="button secondary" href="/services/">Explore Our Services</a></div><a class="starting-guide" href="/services/#discovery"><img src="/assets/taute-owl.png" width="132" height="132" decoding="async" alt=""><span><small>Not sure where to start?</small><strong>Start with Cyber Risk Discovery <span aria-hidden="true">↗</span></strong><span>A working session, not a questionnaire. A practical roadmap.</span></span></a></div><div class="diagram" role="img" aria-label="Business operations, people, systems and data inform a clear view of risk, leading to practical cybersecurity priorities">
+<section class="hero container"><div class="hero-grid"><div><p class="eyebrow">Cybersecurity advisory for South African businesses</p><h1>Clear priorities.<br><span class="serif">Confident decisions.</span></h1><p class="lede">Understand your cyber risk. Focus your resources. Build a cybersecurity programme that supports your business.</p><div class="actions"><a class="button" href="/contact/">Discuss Your Cybersecurity Priorities <span aria-hidden="true">↗</span></a><a class="button secondary" href="/services/">Explore Our Services</a></div><div class="owl-guide"><button class="owl-mascot" id="taute-owl" type="button" aria-label="The Taute owl — click for a thought"><img src="/assets/taute-owl.png" width="132" height="132" decoding="async" alt=""><span class="owl-bubble" role="status" hidden></span></button><a class="starting-guide" href="/services/#discovery"><img src="/assets/taute-owl.png" width="132" height="132" decoding="async" alt=""><span><small>Not sure where to start?</small><strong>Start with Cyber Risk Discovery <span aria-hidden="true">↗</span></strong><span>A working session, not a questionnaire. A practical roadmap.</span></span></a></div></div><div class="diagram" role="img" aria-label="Business operations, people, systems and data inform a clear view of risk, leading to practical cybersecurity priorities">
 <p class="diagram-title">Start with your business</p>
 <div class="diagram-inputs">
 <div class="diagram-input">Your operations &amp; people</div>
@@ -106,5 +106,29 @@
 </div>
 </div>
 </footer>
+<script id="owl-script">
+(function(){
+  var quips=[
+    "Whoo watches your inbox while you sleep?",
+    "I test your backups for fun. When did you last test yours?",
+    "Payment fraud starts with one convincing email.",
+    "Whoo approved that supplier banking change?",
+    "Being small is not being invisible. Ask me anything.",
+    "Your data is a chicken coop. Let us check the locks.",
+    "Security that fits your business. No scarecrows needed."
+  ];
+  var owl=document.getElementById('taute-owl');
+  if(!owl)return;
+  var bubble=owl.querySelector('.owl-bubble'), idx=Math.floor(Math.random()*quips.length), timer;
+  owl.addEventListener('click',function(){
+    bubble.textContent=quips[idx%quips.length]; idx++;
+    bubble.hidden=false;
+    requestAnimationFrame(function(){bubble.classList.add('show')});
+    owl.classList.remove('owl-pop'); void owl.offsetWidth; owl.classList.add('owl-pop');
+    clearTimeout(timer);
+    timer=setTimeout(function(){bubble.classList.remove('show'); setTimeout(function(){bubble.hidden=true},250)},3200);
+  });
+})();
+</script>
 </body>
 </html>

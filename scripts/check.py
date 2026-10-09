@@ -17,7 +17,7 @@ class Page(HTMLParser):
             self.links.append(a.get('href',a.get('src','')))
         if tag=='img':assert 'alt' in a, 'Missing image alternative'
         assert tag not in ('form','iframe'), 'Unexpected active integration'
-        if tag=='script':assert a=={'id':'email-copy-script'}, 'Unexpected script'
+        if tag=='script':assert a.get('id') in ('email-copy-script','owl-script'), 'Unexpected script'
         assert not any(k.startswith('on') for k in a), 'Inline event handler'
     def handle_endtag(self,tag):
         if tag=='svg':self.svg-=1
@@ -25,8 +25,13 @@ pages={}
 for file in ROOT.rglob('*.html'):
     html=file.read_text()
     if '<script' in html:
-        assert file==ROOT/'contact/index.html' and html.count('<script')==1, 'Unexpected script placement'
-        assert "navigator.clipboard.writeText('contact@tautegroup.co.za')" in html
+        allowed={'contact/index.html':1,'index.html':1}
+        assert html.count('<script')==allowed.get(str(file.relative_to(ROOT)),0), 'Unexpected script placement'
+        if 'email-copy-script' in html:
+            assert file==ROOT/'contact/index.html'
+            assert "navigator.clipboard.writeText('contact@tautegroup.co.za')" in html
+        if 'owl-script' in html:
+            assert file==ROOT/'index.html'
     p=Page();p.feed(html);assert p.h1==p.main==p.title==1, str(file)
     assert {'description','viewport','og:title','og:description','og:url','og:image','twitter:card'}<=p.meta, str(file)
     pages[file]=p
