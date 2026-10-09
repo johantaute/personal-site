@@ -22,7 +22,7 @@ Open http://127.0.0.1:4173. The server binds only to loopback. For another port 
 
 Inspected 9 October 2026. Production is the existing Cloudflare Worker `personal-site`, connected through Workers Builds to GitHub `johantaute/personal-site`. The custom domain is `tautegroup.co.za`. The separate private `johantaute/website` repository contains the future Astro app and is not this live site.
 
-The existing `wrangler.jsonc` is preserved: static assets from `./dist`, `not_found_handling: none`, `run_worker_first: false`, compatibility date `2026-10-09`, with workers.dev and preview URLs enabled. Cloudflare’s build configuration is managed in its dashboard, not by a GitHub Actions workflow.
+The existing `wrangler.jsonc` is preserved: static assets from `./dist`, `not_found_handling: none`, `run_worker_first: false`, compatibility date `2026-10-09`, with workers.dev enabled and public version preview URLs disabled. Cloudflare’s build configuration is managed in its dashboard, not by a GitHub Actions workflow.
 
 | Setting | Production | Branch previews |
 | --- | --- | --- |
@@ -31,7 +31,7 @@ The existing `wrangler.jsonc` is preserved: static assets from `./dist`, `not_fo
 | Branches | `main` | All except `main` |
 | Deploy command | `npx --yes wrangler@4.149.0 deploy` | `npx --yes wrangler@4.149.0 versions upload` |
 
-Production and branch previews are automatic. Edit these source files in GitHub or github.dev; a commit or merge to `main` publishes production. Other branches automatically upload preview versions. Keep personal notes, original pages and local review archives out of the repository. No local checkout is required for ongoing edits.
+Production deployment and branch version uploads are automatic. Edit source files on a branch in GitHub or github.dev, open a pull request, and squash merge it into `main` to publish production. The active ruleset protects the default branch, requires pull requests, signed commits and linear history, and blocks force pushes and deletion. No second reviewer is required for this sole-owner project. Other branches upload versions, but those version URLs are disabled; use local preview for layout review. Keep personal notes, original pages and local review archives out of the repository. No local checkout is required for ongoing edits.
 
 This approved business website replaces the previous personal website. The preserved earlier commit remains available in Git history. For rollback, revert the relevant change in GitHub and let the same build publish the reverted source. Do not enable paid services when a free limit is reached.
 
