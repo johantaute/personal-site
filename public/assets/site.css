@@ -130,3 +130,36 @@ h3{font-size:21px}
 .output-list li{border-bottom-color:var(--line)}
 .output-list span{color:var(--accent)}
 .discovery-offer .eyebrow{color:var(--muted)}
+
+/* Layer 3: indie/studio warmth + owl mascot */
+h1,h2,h3{font-weight:640;letter-spacing:-.015em}
+h1{font-size:clamp(40px,5vw,64px)}
+h2{font-size:clamp(30px,3.2vw,44px)}
+.hero h1 .serif,.page-hero h1 .serif{font-style:italic}
+.hero h1{margin:26px 0 28px}
+.button{background:var(--accent);border-color:var(--accent);border-radius:999px;padding:14px 26px;font-weight:600}
+.button:hover{background:var(--accent-dark);transform:translateY(-1px)}
+.button.secondary{border-radius:999px}
+.service-card,.deliverables,.diagram,.discovery-offer,.cta-panel,.manifesto,.contact-card{border-radius:12px}
+.discovery-offer{border-left:4px solid var(--accent)}
+.service-card,.principle-card,.process-step{border-top:none;padding-top:0}
+.service-card h3{font-size:23px}
+a:hover .service-card,.service-card:hover{transform:translateY(-2px)}
+.process-step:before{display:none}
+.process-number{font-family:Georgia,serif;font-style:italic;font-size:26px;color:var(--accent);letter-spacing:0;margin-bottom:8px;display:block}
+.eyebrow:before{content:"— ";color:var(--accent)}
+.faq summary:after{font-size:26px}
+.owl-guide{margin-top:36px;display:flex;align-items:flex-end;gap:18px}
+.owl-mascot{position:relative;background:none;border:0;padding:0;cursor:pointer;line-height:0;flex-shrink:0}
+.owl-mascot img{width:110px;height:110px;border-radius:50%;animation:owl-bob 4.2s ease-in-out infinite}
+.owl-mascot:hover img{animation:owl-bob 4.2s ease-in-out infinite, owl-tilt .5s ease}
+.owl-mascot:focus-visible{outline:3px solid #9d6831;outline-offset:5px;border-radius:50%}
+.owl-mascot.owl-pop img{animation:owl-bop .45s ease}
+@keyframes owl-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes owl-tilt{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-5deg)}}
+@keyframes owl-bop{0%,100%{transform:scale(1)}40%{transform:scale(1.12) rotate(4deg)}}
+.owl-bubble{position:absolute;bottom:56%;left:calc(100% + 14px);width:max-content;max-width:min(260px,60vw);background:var(--ink);color:#fff;font-size:13.5px;line-height:1.5;padding:11px 15px;border-radius:14px 14px 14px 3px;box-shadow:0 8px 24px rgba(20,25,28,.18);opacity:0;transform:translateY(6px);transition:opacity .2s,transform .2s;pointer-events:none;z-index:5}
+.owl-bubble.show{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){.owl-mascot img,.owl-mascot.owl-pop img{animation:none}.owl-bubble{transition:none}}
+.starting-guide img{display:none}
+@media(max-width:720px){.owl-mascot img{width:84px;height:84px}}
