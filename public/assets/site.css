@@ -42,3 +42,91 @@ body{isolation:isolate}body:before{content:"";position:fixed;z-index:-1;pointer-
 @media(max-width:720px){.sample-teaser{flex-direction:column;align-items:start;padding:24px;gap:18px}.enquiry-faq{padding:10px 0 30px}.next-steps{grid-template-columns:1fr;gap:25px}.next-steps li{padding:14px 20px;background:var(--soft)}.next-steps li:not(:last-child):after{content:"↓";top:auto;bottom:-25px;right:50%}.sample-risk{grid-template-columns:1fr;gap:15px}.sample-stages{grid-template-columns:1fr}.sample-context{padding-bottom:20px}.contact-email{overflow-wrap:anywhere}}
 
 .contact-card .copy-email{display:flex;width:fit-content}.contact-card .copy-email[hidden]{display:none}
+
+/* ============================================================
+   Simpler, less corporate look — override layer (appended last)
+   ============================================================ */
+:root{
+  --navy:#222e33;           /* panels now near-neutral */
+  --ink:#22292d;
+  --muted:#5f6b6e;
+  --accent:#a33f3c;         /* red kept for small marks only */
+  --paper:#fbfaf7;
+  --soft:#f3f2ee;
+  --line:#e4e1db;
+}
+body{font-size:16.5px;line-height:1.7}
+body:before{opacity:.03}   /* quieter watermark */
+
+/* Type: less display-y, less tracked-out */
+h1,h2,h3{letter-spacing:-.01em;font-weight:450}
+h1{font-size:clamp(34px,4vw,52px)}
+h2{font-size:clamp(26px,2.6vw,36px)}
+h3{font-size:21px}
+.hero h1,.page-hero h1{font-size:clamp(34px,4vw,52px)}
+.lede{font-size:18px;line-height:1.75}
+.section{padding-block:72px}
+.section-heading{margin-bottom:36px}
+
+/* Eyebrows: no shouting */
+.eyebrow{font-size:13px;letter-spacing:.01em;text-transform:none;font-weight:500;color:var(--muted)}
+.eyebrow.light{color:var(--muted)}
+.diagram-title,.footer-label,.process-number,.service-card .service-no,
+.principle-strip,.output-list span{letter-spacing:.01em;text-transform:none}
+
+/* Buttons: calm, single style */
+.button{background:var(--ink);border-color:var(--ink);color:#fff;border-radius:4px;min-height:48px;gap:12px;font-size:14px}
+.button:hover{background:#000}
+.button.secondary{background:transparent;border-color:var(--line);color:var(--ink)}
+.button.secondary:hover{background:var(--soft)}
+.button.light{background:#fff;color:var(--ink);border-color:var(--line)}
+.text-link{font-size:14px;border-bottom-color:var(--muted)}
+
+/* Panels & boxes: flat, bordered, not navy */
+.discovery-panel,.contact-card,.deliverables,.manifesto,.diagram{
+  background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:4px}
+.discovery-panel p{color:var(--muted)}
+.discovery-panel .text-link{color:var(--ink);border-color:var(--ink)}
+.contact-card p{color:var(--muted)}
+.contact-email{border-bottom-color:var(--ink);color:var(--ink)}
+.contact-card .email-note{color:var(--muted)}
+.diagram-core{background:var(--soft);color:var(--ink);border:1px solid var(--line)}
+.diagram-core small{color:var(--muted)}
+.diagram-output{background:#fff}
+.diagram,.diagram-input,.diagram-connector:before,.diagram-connector:after{border-color:var(--line);background-color:transparent}
+.diagram-input{background:var(--paper)}
+
+/* Cards: lighter separators */
+.service-card,.process-step,.principle-card{border-top-color:var(--line)}
+.service-card:before,.process-step:before{background:#c9c5bd}
+.process-section{background:transparent;border-color:var(--line)}
+.process-row{margin-top:36px}
+
+/* Footer: light and plain */
+.site-footer{background:transparent;color:var(--ink);border-top:1px solid var(--line);padding:44px 0 26px}
+.footer-brand p,.footer-bottom,.footer-links a{color:var(--muted)}
+.footer-label{color:var(--ink)}
+.footer-bottom{border-top-color:var(--line)}
+.footer-brand .brand-sub{color:var(--muted)}
+
+/* Header: thinner, quieter */
+.header-inner{height:76px}
+.hero{padding:64px 0 48px}
+.page-hero{padding:56px 0 48px}
+.starting-guide img{width:96px;height:96px}
+
+/* Misc softening */
+.scope-note{border-left:2px solid var(--line);background:var(--soft)}
+.cta-panel{border-color:var(--line);border-radius:4px;background:#fff}
+.cta-panel h2{font-size:30px}
+.deliverables li:before{color:var(--muted)}
+.sample-teaser{padding-block:48px}
+
+/* Discovery offer panel (homepage) */
+.discovery-offer{background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:4px}
+.discovery-offer p:not(.eyebrow):not(.offer-label){color:var(--muted)}
+.discovery-offer .text-link{color:var(--ink);border-color:var(--ink)}
+.offer-label{color:var(--muted);text-transform:none;letter-spacing:.01em;font-size:12px;font-weight:500}
+.output-list li{border-bottom-color:var(--line)}
+.output-list span{color:var(--accent)}
+.discovery-offer .eyebrow{color:var(--muted)}
