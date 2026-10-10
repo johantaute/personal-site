@@ -194,3 +194,22 @@ main{max-width:1480px;margin:0 auto}
 .process-row{margin-left:5%;margin-right:5%}
 .page-hero h1 .serif{color:var(--accent)}
 .section-head p:not(.kicker){color:#c7d9da}
+
+/* footer — mirrors the approved homepage footer layout */
+.footer{max-width:1480px;margin:0 auto;padding:28px 5%;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font-size:11px;color:#bfced0}
+.footer p{max-width:75ch}
+.footer nav{display:flex;flex-wrap:wrap;gap:18px}
+.footer nav a{min-height:44px;display:inline-flex;align-items:center;text-decoration:none}
+.footer nav a:hover{color:var(--accent)}
+@media(max-width:760px){.footer{display:block;padding:25px 5%}.footer nav a{display:inline-block;padding:15px 0}}
+
+/* bottom-of-page blocks on inner pages */
+.container{padding-left:5%;padding-right:5%;box-sizing:border-box}
+.next-note{padding-top:6px;padding-bottom:6px}
+.next-note p{max-width:70ch;color:#c7d9da;font-size:.95rem}
+.cta-section{padding:56px 5%;border-top:1px solid var(--line)}
+.cta-section .cta-panel{background:var(--panel);border:1px solid var(--line);align-items:flex-end}
+.cta-panel .relationship-invite{border:none;background:none;margin:0;padding:0;flex:1;display:flex;align-items:flex-end;gap:26px;min-width:260px}
+.cta-panel .relationship-invite .companion-owl{margin:0;width:110px}
+.cta-panel .relationship-invite .eyebrow{margin-bottom:8px}
+.cta-panel .relationship-invite h2{margin-bottom:10px}
