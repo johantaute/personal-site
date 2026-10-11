@@ -213,3 +213,12 @@ main{max-width:1480px;margin:0 auto}
 .cta-panel .relationship-invite .companion-owl{margin:0;width:110px}
 .cta-panel .relationship-invite .eyebrow{margin-bottom:8px}
 .cta-panel .relationship-invite h2{margin-bottom:10px}
+
+/* ---------- insights post ---------- */
+.post{max-width:720px;margin:0 auto 40px;padding-top:8px}
+.post-meta{font-family:'Courier New',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:28px}
+.post p{font-size:1.02rem;line-height:1.85;color:var(--ink);margin-bottom:20px}
+.post h2{font-size:1.45rem;margin:38px 0 16px}
+.post ul{margin:0 0 20px 22px}
+.post ul li{font-size:1.02rem;line-height:1.85;margin-bottom:8px}
+.post em{color:var(--ink-soft)}
