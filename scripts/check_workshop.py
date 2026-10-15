@@ -22,7 +22,7 @@ assert 'Bundi' not in visible, 'Retired service name must not appear'
 main = html[html.find('<main'):html.find('</main>')]
 nosvg = re.sub(r'<svg.*?</svg>', '', main, flags=re.S)
 words = len(re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', nosvg)).strip().split())
-assert 220 <= words <= 400, f'Homepage prose budget breached: {words} words'
+assert 220 <= words <= 395, f'Homepage prose budget breached: {words} words'
 # required boundary statement and consistent CTA
 assert 'No scanner. No score. No promise to find everything.' in html
 assert html.count('Discuss your priorities') >= 2
