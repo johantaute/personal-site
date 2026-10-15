@@ -24,7 +24,11 @@ nosvg = re.sub(r'<svg.*?</svg>', '', main, flags=re.S)
 words = len(re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', nosvg)).strip().split())
 assert 220 <= words <= 395, f'Homepage prose budget breached: {words} words'
 # required boundary statement and consistent CTA
-assert 'No scanner. No score. No promise to find everything.' in html
+# required boundary statement lives on the Owl Laboratory and services pages now
+lab = (ROOT / 'public/Bundi/index.html').read_text()
+svc = (ROOT / 'public/services/index.html').read_text()
+assert 'No scanner' in lab and 'does not perform penetration testing' in svc
+assert 'Discuss your priorities' in html
 assert html.count('Discuss your priorities') >= 2
 # process shown in four brief steps
 assert len(re.findall(r'<span class="num">0\d</span>', html)) == 4
